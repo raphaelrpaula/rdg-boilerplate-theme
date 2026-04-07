@@ -1,0 +1,37 @@
+# --- Dependências de Desenvolvimento ---
+node_modules/
+.npm
+npm-debug.log
+yarn-error.log
+package-lock.json
+composer.lock
+
+# --- Gulp & Assets Temporários ---
+# Ignoramos ficheiros compilados que não são o "final"
+# Mas mantemos os ficheiros dentro de _dev (Sass, JS original)
+assets/_dev/css/*.css
+.sass-cache/
+
+# --- WordPress & Configurações de Servidor ---
+wp-config.php
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+*.sql
+*.zip
+*.tar.gz
+
+# --- Ficheiros de Sistema & IDEs ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# --- Logs ---
+error_log
+php_error.log
+debug.log
+
+# --- Pasta de Uploads (Caso faças commit da raiz do tema e tenhas links simbólicos) ---
+uploads/
