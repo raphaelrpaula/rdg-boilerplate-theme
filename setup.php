@@ -34,7 +34,6 @@ $prefixoUpper = strtoupper($prefixoRaw);
 $themeUrlLower = strtolower($themeUrl);
 $authorUrlLower = strtolower($authorUrl);
 $packageSlug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $projectName), '-'));
-$packageDescription = $themeDescription;
 
 // Lista de arquivos para atualizar
 // Adicione aqui qualquer arquivo novo que precise de substituição
@@ -57,9 +56,10 @@ foreach ($files as $file) {
         $content = str_replace('{{AUTHOR_NAME}}', $author, $content);
         $content = str_replace('{{AUTHOR_URL}}', $authorUrlLower, $content);
 
-        $content = str_replace('rdg', $prefixoLower, $content);
+        $content = str_replace('rdg-temp-name', $packageSlug, $content);
+        $content = str_replace('rdg-temp-description', $packageDescription, $content);
+        $content = str_replace('rdg-slug', $prefixoLower, $content);
         $content = str_replace('rdg-', $prefixoLower . '-', $content);
-        $content = str_replace('rdg-temp-slug', $packageSlug, $content);
         
         // Namespaces e Constantes PHP
         // Procura por RDG\ e RDG_ e troca pelo seu novo prefixo

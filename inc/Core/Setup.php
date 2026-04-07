@@ -34,9 +34,9 @@ class Setup {
 
   public function footer_widgets() {
     register_sidebar(array(
-      'name' => __('footer Widgets', 'rdg'),
+      'name' => __('footer Widgets', 'rdg-slug'),
       'id' => 'footer-widgets',
-      'description' => __('Widgets que aparecem no Rodapé', 'rdg'),
+      'description' => __('Widgets que aparecem no Rodapé', 'rdg-slug'),
       'before_title' => '<h4>',
       'after_title' => '</h4>',
       'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
