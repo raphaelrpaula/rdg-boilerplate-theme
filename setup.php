@@ -57,7 +57,7 @@ foreach ($files as $file) {
         $content = str_replace('{{AUTHOR_URL}}', $authorUrlLower, $content);
 
         $content = str_replace('rdg-temp-name', $packageSlug, $content);
-        $content = str_replace('rdg-temp-description', $packageDescription, $content);
+        $content = str_replace('rdg-temp-description', $themeDescription, $content);
         $content = str_replace('rdg-slug', $prefixoLower, $content);
         $content = str_replace('rdg-', $prefixoLower . '-', $content);
         
