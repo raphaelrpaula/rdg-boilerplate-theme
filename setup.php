@@ -59,7 +59,7 @@ foreach ($files as $file) {
 
         $content = str_replace('rdg', $prefixoLower, $content);
         $content = str_replace('rdg-', $prefixoLower . '-', $content);
-        $content = str_replace('rdg-temp-slug', $themeSlug, $content);
+        $content = str_replace('rdg-temp-slug', $packageSlug, $content);
         
         // Namespaces e Constantes PHP
         // Procura por RDG\ e RDG_ e troca pelo seu novo prefixo
