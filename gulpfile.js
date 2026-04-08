@@ -9,6 +9,7 @@ import babel from "gulp-babel";
 import uglify from "gulp-uglify";
 import concat from "gulp-concat";
 import webp from "gulp-webp";
+import jsonSass from "gulp-json-sass";
 
 const sass = gulpSass(dartSass);
 browser_sync.create();
@@ -74,6 +75,14 @@ export function images() {
     .pipe(gulp.dest(paths.img.dest));
 }
 
+export function jsonToSass() {
+  return gulp
+    .src("./theme-config.json")
+    .pipe(jsonSass({ sass: false }))
+    .pipe(rename("_json-vars.scss"))
+    .pipe(gulp.dest(`${dev}/css/scss`));
+}
+
 export function browserSync() {
   browser_sync.init({
     server: {
@@ -86,11 +95,15 @@ export function watch() {
   gulp.watch(paths.styles.src, styles);
   gulp.watch(paths.scripts.src, scripts);
   gulp.watch(paths.img.src, images);
+  gulp.watch("./theme-config.json", jsonToSass);
   gulp
     .watch(["*.html", "*.php", "./**/*.php"])
     .on("change", browser_sync.reload);
 }
 
-const build = gulp.parallel(watch, browserSync, styles, scripts, images);
+const build = gulp.series(
+  jsonToSass,
+  gulp.parallel(watch, browserSync, styles, scripts, images),
+);
 
 export default build;

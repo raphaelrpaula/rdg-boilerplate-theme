@@ -4,7 +4,9 @@ namespace RDG\Core;
 class Setup {
   public function __construct() {
     add_action('after_setup_theme', [$this, 'theme_support']);
+    add_action('after_setup_theme', [$this, 'configure_theme_palette']);
     add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+    add_action('widgets_init', [$this, 'footer_widgets']);
   }
 
   public function theme_support() {
@@ -15,6 +17,31 @@ class Setup {
       'main-menu' => 'Menu Principal',
       'footer' => 'Menu do Rodapé',
     ]);
+  }
+
+  /**
+   * Lê o JSON e configura a paleta de cores do editor
+   */
+  public function configure_theme_palette() {
+    $config_path = get_template_directory() . '/theme-config.json';
+    
+    if (!file_exists($config_path)) return;
+
+    $config = json_decode(file_get_contents($config_path), true);
+    
+    if (isset($config['colors'])) {
+      $wp_palette = [];
+      
+      foreach ($config['colors'] as $slug => $hex) {
+        $wp_palette[] = [
+            'name'  => ucwords(str_replace('-', ' ', $slug)),
+            'slug'  => $slug,
+            'color' => $hex,
+        ];
+      }
+
+      add_theme_support('editor-color-palette', $wp_palette);
+    }
   }
 
   public function enqueue_assets() {

@@ -1,0 +1,14 @@
+{
+  "colors": {
+    "destaque": "#BF0D0D",
+    "p-color": "#474446",
+    "text-color": "#7C797B",
+    "text-light": "#A7A7A7",
+    "gray": "#F5F5F5",
+    "border": "#DADADA"
+  },
+  "fonts": {
+    "title": "\"Merriweather Sans\", sans-serif",
+    "body": "\"aller\", sans-serif"
+  }
+}
