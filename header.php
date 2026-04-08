@@ -57,12 +57,7 @@
         <div class="mobile-menu">
           <nav class="main-menu">
             <div class="menu-top-header">
-              <img src="<?= IMG_PATH_URL . '/icons/icone-tc.svg'; ?>" alt="" loading="lazy">
-
-              <div class="header--options">
-                <?= do_shortcode('[weglot_switcher]'); ?>
-                <img src="<?= IMG_PATH_URL . '/icons/cross.svg'; ?>" alt="" id="close-menu" loading="lazy">
-              </div>
+              <img src="<?= IMG_PATH_URL . '/icons/cross.svg'; ?>" alt="" id="close-menu" loading="lazy">
             </div>
 
             <?php if (has_nav_menu('footer-menu')) {
