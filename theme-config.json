@@ -5,7 +5,14 @@
     "text-color": "#7C797B",
     "text-light": "#A7A7A7",
     "gray": "#F5F5F5",
-    "border": "#DADADA"
+    "border": "#DADADA",
+    "placeholder": "#bbc0bf",
+    "wpp": "#2cac71",
+    "error": "#ff5a5a",
+    "error-bg": "#fbcbcb",
+    "success": "#71c971",
+    "success-bg": "#d7ffda",
+    "attention": "#e9af39"
   },
   "fonts": {
     "title": "\"Merriweather Sans\", sans-serif",

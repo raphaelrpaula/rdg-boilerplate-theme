@@ -1,17 +1,19 @@
-$p-color: #474446;
-$destaque: #bf0d0d;
-$text-color: #7c797b;
-$text-light: #a7a7a7;
-$gray: #f5f5f5;
-$border: #dadada;
+@use "_json-vars";
+
+$p-color: $colors-p-color;
+$destaque: $colors-destaque;
+$text-color: $colors-text-color;
+$text-light: $colors-text-light;
+$gray: $colors-gray;
+$border: $colors-border;
 /* ========= */
-$placeholder: #bbc0bf;
-$wpp: #2cac71;
-$error: #ff5a5a;
-$error-bg: #fbcbcb;
-$success: #71c971;
-$success-bg: #d7ffda;
-$attention: #e9af39;
+$placeholder: $colors-placeholder;
+$wpp: $colors-wpp;
+$error: $colors-error;
+$error-bg: $colors-error-bg;
+$success: $colors-success;
+$success-bg: $colors-success-bg;
+$attention: $colors-attention;
 
 @mixin transition($time) {
   -moz-transition: all $time ease-in-out;
@@ -59,8 +61,8 @@ $attention: #e9af39;
 // FONTES
 @mixin font($local) {
   @if $local == "title" {
-    font-family: "Merriweather Sans", sans-serif;
+    font-family: $fonts-title;
   } @else if $local == "body" {
-    font-family: "aller", sans-serif;
+    font-family: $fonts-body;
   }
 }
