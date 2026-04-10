@@ -1,0 +1,66 @@
+$p-color: #474446;
+$destaque: #bf0d0d;
+$text-color: #7c797b;
+$text-light: #a7a7a7;
+$gray: #f5f5f5;
+$border: #dadada;
+/* ========= */
+$placeholder: #bbc0bf;
+$wpp: #2cac71;
+$error: #ff5a5a;
+$error-bg: #fbcbcb;
+$success: #71c971;
+$success-bg: #d7ffda;
+$attention: #e9af39;
+
+@mixin transition($time) {
+  -moz-transition: all $time ease-in-out;
+  -o-transition: all $time ease-in-out;
+  -webkit-transition: all $time ease-in-out;
+  transition: all $time ease-in-out;
+}
+
+@mixin redGradient() {
+  background: linear-gradient(258deg, #bf0d0d 27.72%, #f22e2e 89.08%);
+}
+
+@mixin d($dispositivo) {
+  @if $dispositivo == l {
+    @media (min-width: 1716px) {
+      @content;
+    }
+  } @else if $dispositivo == wt {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  } @else if $dispositivo == t {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $dispositivo == m {
+    @media (max-width: 560px) {
+      @content;
+    }
+  }
+}
+
+@mixin grid($grid) {
+  display: grid;
+  grid-template-columns: repeat($grid, 1fr);
+  gap: 32px;
+  @include d(m) {
+    grid-template-columns: 1fr;
+  }
+  @include d(ms) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// FONTES
+@mixin font($local) {
+  @if $local == "title" {
+    font-family: "Merriweather Sans", sans-serif;
+  } @else if $local == "body" {
+    font-family: "aller", sans-serif;
+  }
+}

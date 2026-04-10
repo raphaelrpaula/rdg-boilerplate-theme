@@ -80,7 +80,7 @@ export function jsonToSass() {
     .src("./theme-config.json")
     .pipe(jsonSass({ sass: false }))
     .pipe(rename("_json-vars.scss"))
-    .pipe(gulp.dest(`${dev}/css/scss`));
+    .pipe(gulp.dest(`${dev}/css/scss/config`));
 }
 
 export function browserSync() {
