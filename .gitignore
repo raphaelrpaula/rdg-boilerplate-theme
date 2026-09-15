@@ -1,5 +1,6 @@
 # --- Dependências de Desenvolvimento ---
 node_modules/
+vendor/
 .npm
 npm-debug.log
 yarn-error.log
