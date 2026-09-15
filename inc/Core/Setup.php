@@ -11,7 +11,7 @@ class Setup
     add_action('after_setup_theme', [$this, 'configure_theme_palette']);
     add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
     add_action('widgets_init', [$this, 'footer_widgets']);
-    add_action('customize_register', 'rdg_customize_register');
+    add_action('customize_register', 'customize_register');
 
     add_filter('gutenberg_use_widgets_block_editor', '__return_false', 100);
     add_filter('use_widgets_block_editor', '__return_false');
