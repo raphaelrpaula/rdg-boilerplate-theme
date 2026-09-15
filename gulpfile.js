@@ -23,7 +23,7 @@ var paths = {
     dest_min: "./assets/css",
   },
   scripts: {
-    src: `${dev}/scripts/**/*.js`,
+    src: [`${dev}/scripts/**/*.js`, `!${dev}/scripts/**/_*.js`],
     dest: "./assets/js",
   },
   img: {
