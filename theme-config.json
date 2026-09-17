@@ -1,12 +1,14 @@
 {
   "colors": {
-    "destaque": "#BF0D0D",
-    "p-color": "#474446",
-    "text-color": "#7C797B",
-    "text-light": "#A7A7A7",
-    "gray": "#F5F5F5",
-    "border": "#DADADA",
-    "placeholder": "#bbc0bf",
+    "p-color": "#183A67",
+    "destaque": "#51AC32",
+    "destaque-light": "#EDF3EF",
+    "text-color": "#5A7393",
+    "text-light": "#BAC4D1",
+    "gray": "#E8EEF6",
+    "border": "#E3E7ED",
+    "border-dark": "#2F4E76",
+    "placeholder": "#5A7096",
     "wpp": "#2cac71",
     "error": "#ff5a5a",
     "error-bg": "#fbcbcb",
@@ -15,7 +17,29 @@
     "attention": "#e9af39"
   },
   "fonts": {
-    "title": "\"Merriweather Sans\", sans-serif",
-    "body": "\"aller\", sans-serif"
+    "title": "\"Montserrat\", sans-serif",
+    "body": "\"Montserrat\", sans-serif"
+  },
+  "social_networks": {
+    "instagram": {
+      "icon": "fa-brands fa-instagram",
+      "mod": "ventocom_instagram"
+    },
+    "facebook": {
+      "icon": "fa-brands fa-facebook-f",
+      "mod": "ventocom_facebook"
+    },
+    "linkedin": {
+      "icon": "fa-brands fa-linkedin-in",
+      "mod": "ventocom_linkedin"
+    },
+    "x": {
+      "icon": "fa-brands fa-x-twitter",
+      "mod": "ventocom_x"
+    },
+    "youtube": {
+      "icon": "fa-brands fa-youtube",
+      "mod": "ventocom_youtube"
+    }
   }
 }
