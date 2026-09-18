@@ -1,0 +1,74 @@
+@use "json-vars" as *;
+
+$p-color: $colors-p-color;
+$destaque: $colors-destaque;
+$destaque-light: $colors-destaque-light;
+$text-color: $colors-text-color;
+$text-light: $colors-text-light;
+$gray: $colors-gray;
+$border: $colors-border;
+$border-dark: $colors-border-dark;
+/* ========= */
+$placeholder: $colors-placeholder;
+$wpp: $colors-wpp;
+$error: $colors-error;
+$error-bg: $colors-error-bg;
+$success: $colors-success;
+$success-bg: $colors-success-bg;
+$attention: $colors-attention;
+
+@mixin transition($time) {
+  -moz-transition: all $time ease-in-out;
+  -o-transition: all $time ease-in-out;
+  -webkit-transition: all $time ease-in-out;
+  transition: all $time ease-in-out;
+}
+
+@mixin d($dispositivo) {
+  @if $dispositivo == l {
+    @media (min-width: 1716px) {
+      @content;
+    }
+  } @else if $dispositivo == wt {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  } @else if $dispositivo == t {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $dispositivo == m {
+    @media (max-width: 560px) {
+      @content;
+    }
+  }
+}
+
+@mixin grid($grid) {
+  display: grid;
+  grid-template-columns: repeat($grid, 1fr);
+  gap: 32px;
+  @include d(m) {
+    grid-template-columns: 1fr;
+  }
+  @include d(ms) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// FONTES
+@mixin font($local) {
+  @if $local == "title" {
+    font-family: $fonts-title;
+  } @else if $local == "body" {
+    font-family: $fonts-body;
+  }
+}
+
+@mixin fontawesome() {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Font Awesome 7 Free";
+  font-weight: 900;
+}

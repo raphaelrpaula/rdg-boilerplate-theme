@@ -1,0 +1,10 @@
+@use "../fontawesome/scss/variables" with (
+  $font-path: "./webfonts"
+);
+
+@forward "../fontawesome/scss/variables";
+@forward "../fontawesome/scss/mixins";
+@forward "../fontawesome/scss/fontawesome";
+@forward "../fontawesome/scss/solid" as fas-*;
+@forward "../fontawesome/scss/brands" as fab-*;
+@forward "../fontawesome/scss/regular" as far-*;
