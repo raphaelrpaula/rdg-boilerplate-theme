@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "gulp",
     "pre-backup": "gulp build && composer install --no-dev --optimize-autoloader",
-    "clean": "rimraf node_modules && rimraf vendor"
+    "clean": "rimraf node_modules && rimraf vendor",
+    "setup": "npm install && composer install"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
