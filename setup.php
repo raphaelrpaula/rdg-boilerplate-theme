@@ -17,7 +17,6 @@ function ask($question, $default = '')
     return $input !== '' ? $input : $default;
 }
 
-// 1. Coleta interativa de dados com fallbacks
 $projectName = ask("Qual o nome do Projeto/Cliente? (Ex: Clinica Sorriso)");
 if (!$projectName) exit("❌ Erro: O nome do projeto é obrigatório.\n");
 
@@ -28,7 +27,6 @@ $namespaceRaw     = ask("Qual o Namespace PHP (Composer)?", strtoupper($prefixoR
 $themeDescription = ask("Qual a descrição do tema?", "Tema customizado de alta performance desenvolvido do zero para " . $projectName);
 $themeUrl         = ask("Qual a URL do tema?", $authorUrl);
 
-// 2. Sanitização e padronização das variáveis
 $prefixoLower   = strtolower($prefixoRaw);
 $prefixoUpper   = strtoupper($prefixoRaw);
 $namespaceUpper = strtoupper($namespaceRaw);
@@ -36,7 +34,6 @@ $themeUrlLower  = strtolower($themeUrl);
 $authorUrlLower = strtolower($authorUrl);
 $packageSlug    = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $projectName), '-'));
 
-// 3. Atualização / Criação dinâmica do composer.json
 $composerFile = 'composer.json';
 $composerData = file_exists($composerFile)
     ? json_decode(file_get_contents($composerFile), true)
@@ -61,7 +58,6 @@ $composerData['autoload']    = [
 file_put_contents($composerFile, json_encode($composerData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 echo "✅ composer.json atualizado com o namespace '{$namespaceUpper}\\'.\n";
 
-// 4. Substituição de Placeholders nos arquivos do tema
 $files = [
     'style.css',
     'functions.php',
@@ -73,7 +69,6 @@ foreach ($files as $file) {
     if (file_exists($file)) {
         $content = file_get_contents($file);
 
-        // Placeholders de texto e links
         $content = str_replace('{{THEME_NAME}}', $projectName, $content);
         $content = str_replace('{{THEME_PREFIX}}', $prefixoLower, $content);
         $content = str_replace('{{THEME_URL}}', $themeUrlLower, $content);
@@ -81,13 +76,11 @@ foreach ($files as $file) {
         $content = str_replace('{{AUTHOR_NAME}}', $author, $content);
         $content = str_replace('{{AUTHOR_URL}}', $authorUrlLower, $content);
 
-        // Nomes temporários e slugs
         $content = str_replace('rdg-temp-name', $packageSlug, $content);
         $content = str_replace('rdg-temp-description', $themeDescription, $content);
         $content = str_replace('rdg-slug', $prefixoLower, $content);
         $content = str_replace('rdg-', $prefixoLower . '-', $content);
 
-        // Namespaces PHP, Classes e Constantes
         $content = str_replace('RDG\\', $namespaceUpper . '\\', $content);
         $content = str_replace('RDG_', $namespaceUpper . '_', $content);
         $content = str_replace('namespace RDG;', 'namespace ' . $namespaceUpper . ';', $content);
@@ -97,7 +90,24 @@ foreach ($files as $file) {
     }
 }
 
-// 5. Regenerar o Autoload caso o Composer já esteja instalado na máquina
+$gulpfile_path = __DIR__ . '/gulpfile.js';
+if (file_exists($gulpfile_path)) {
+    $gulpfile_content = file_get_contents($gulpfile_path);
+
+    $nova_url = $packageSlug . '.test';
+
+    $novo_conteudo = preg_replace(
+        '/proxy:\s*["\'].*?["\']/',
+        'proxy: "' . $nova_url . '"',
+        $gulpfile_content
+    );
+
+    file_put_contents($gulpfile_path, $novo_conteudo);
+    echo "✅ gulpfile.js atualizado com o proxy: {$nova_url}\n";
+} else {
+    echo "⚠️ gulpfile.js não encontrado na raiz.\n";
+}
+
 if (shell_exec('which composer')) {
     echo "🔄 Executando 'composer dump-autoload'...\n";
     system('composer dump-autoload');

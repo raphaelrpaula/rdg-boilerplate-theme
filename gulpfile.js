@@ -1,3 +1,4 @@
+import zip from "gulp-zip";
 import gulp from "gulp";
 import * as dartSass from "sass";
 import gulpSass from "gulp-sass";
@@ -12,7 +13,7 @@ import webp from "gulp-webp";
 import jsonSass from "gulp-json-sass";
 
 const sass = gulpSass(dartSass);
-browser_sync.create();
+const bs = browser_sync.create();
 
 const dev = "./assets/_dev";
 
@@ -31,6 +32,14 @@ var paths = {
     dest: "./assets/img",
   },
 };
+
+export function jsonToSass() {
+  return gulp
+    .src("./theme-config.json")
+    .pipe(jsonSass({ sass: false }))
+    .pipe(rename("_json-vars.scss"))
+    .pipe(gulp.dest(`${dev}/css/scss/config`));
+}
 
 export function styles() {
   return gulp
@@ -55,17 +64,17 @@ export function styles() {
       }),
     )
     .pipe(gulp.dest(paths.styles.dest_min))
-    .pipe(browser_sync.stream());
+    .pipe(bs.stream());
 }
 
 export function scripts() {
   return gulp
-    .src(paths.scripts.src, { sourcemaps: true })
+    .src(paths.scripts.src, { sourcemaps: false })
     .pipe(babel())
     .pipe(uglify())
     .pipe(concat("main.min.js"))
     .pipe(gulp.dest(paths.scripts.dest))
-    .pipe(browser_sync.stream());
+    .pipe(bs.stream());
 }
 
 export function images() {
@@ -75,35 +84,48 @@ export function images() {
     .pipe(gulp.dest(paths.img.dest));
 }
 
-export function jsonToSass() {
-  return gulp
-    .src("./theme-config.json")
-    .pipe(jsonSass({ sass: false }))
-    .pipe(rename("_json-vars.scss"))
-    .pipe(gulp.dest(`${dev}/css/scss/config`));
+export function browserSync() {
+  bs.init({
+    proxy: "rdg.test",
+  });
 }
 
-export function browserSync() {
-  browser_sync.init({
-    server: {
-      baseDir: "./",
-    },
-  });
+export function exportZip() {
+  return gulp
+    .src([
+      "./**/*",
+      "!./node_modules/**",
+      "!./assets/_dev/**",
+      "!./.git/**",
+      "!./.gitignore",
+      "!./gulpfile.js",
+      "!./package*.json",
+      "!./composer.lock",
+      "!./*.zip",
+    ])
+    .pipe(zip("tema-producao.zip"))
+    .pipe(gulp.dest("../"));
 }
 
 export function watch() {
   gulp.watch(paths.styles.src, styles);
   gulp.watch(paths.scripts.src, scripts);
   gulp.watch(paths.img.src, images);
-  gulp.watch("./theme-config.json", jsonToSass);
-  gulp
-    .watch(["*.html", "*.php", "./**/*.php"])
-    .on("change", browser_sync.reload);
+
+  gulp.watch("./theme-config.json", gulp.series(jsonToSass, styles));
+  gulp.watch(["*.html", "*.php", "./**/*.php"]).on("change", bs.reload);
 }
 
-const build = gulp.series(
+export const build = gulp.series(
   jsonToSass,
-  gulp.parallel(watch, browserSync, styles, scripts, images),
+  gulp.parallel(styles, scripts, images),
+  exportZip,
 );
 
-export default build;
+const devTask = gulp.series(
+  jsonToSass,
+  gulp.parallel(styles, scripts, images),
+  gulp.parallel(watch, browserSync),
+);
+
+export default devTask;

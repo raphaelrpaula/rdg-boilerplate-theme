@@ -41,5 +41,13 @@
       "icon": "fa-brands fa-youtube",
       "mod": "ventocom_youtube"
     }
+  },
+  "icons": {
+    "calendar": "ri-calendar-check-line",
+    "arrow-right": "ri-arrow-right-line",
+    "arrow-down": "ri-arrow-down-line",
+    "user-settings": "ri-user-settings-line",
+    "chart-box": "ri-bar-chart-box-line",
+    "chart-bars": "ri-bar-chart-2-line"
   }
 }
